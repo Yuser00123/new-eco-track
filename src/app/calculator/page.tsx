@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from '@/components/layout/Navbar';
 import { TransportStep } from '@/components/calculator/TransportStep';
@@ -11,7 +11,6 @@ import { ResultsStep } from '@/components/calculator/ResultsStep';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { useEcoStore } from '@/store/ecoStore';
 import { calculateCarbonFootprint } from '@/lib/carbonCalculator';
-import type { CarbonBreakdown } from '@/types/carbon';
 
 const steps = [
   { id: 'transport', title: 'Transport', icon: '🚗', description: 'How you get around' },
@@ -23,17 +22,16 @@ const steps = [
 
 export default function CalculatorPage() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [liveBreakdown, setLiveBreakdown] = useState<CarbonBreakdown | null>(null);
   const { calculatorInputs, setCalculatorInputs, submitCalculator, initializeStore } = useEcoStore();
 
   useEffect(() => {
     initializeStore();
   }, [initializeStore]);
 
-  useEffect(() => {
-    const breakdown = calculateCarbonFootprint(calculatorInputs);
-    setLiveBreakdown(breakdown);
-  }, [calculatorInputs]);
+  const liveBreakdown = useMemo(
+    () => calculateCarbonFootprint(calculatorInputs),
+    [calculatorInputs],
+  );
 
   const handleNext = () => {
     if (currentStep === steps.length - 2) {
