@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
+const GEMINI_MODEL = 'gemini-2.5-flash';
+
 const RequestSchema = z.object({
   type: z.enum(['recommendations', 'challenge', 'progress', 'motivation']),
   carbonScore: z
@@ -144,7 +146,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const prompt = buildPrompt(parsed.data);
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -176,7 +178,12 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
 
     const aiResponse = JSON.parse(jsonMatch[0]) as Record<string, unknown>;
-    return NextResponse.json({ success: true, data: aiResponse, source: 'gemini' });
+    return NextResponse.json({
+      success: true,
+      data: aiResponse,
+      source: 'gemini',
+      model: GEMINI_MODEL,
+    });
   } catch {
     return NextResponse.json(getMockResponse(parsed.data.type));
   }
