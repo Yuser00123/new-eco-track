@@ -7,8 +7,6 @@
 
   [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat&logo=next.js)](https://nextjs.org/)
   [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1-38B2AC?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
-  [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-8.2-316192?style=flat&logo=postgresql)](https://postgresql.org/)
-  [![Drizzle ORM](https://img.shields.io/badge/Drizzle-ORM-C5F74F?style=flat&logo=drizzle)](https://orm.drizzle.team/)
   [![Gemini AI](https://img.shields.io/badge/Google-Gemini_AI-4285F4?style=flat&logo=google)](https://ai.google.dev/)
 </div>
 
@@ -24,13 +22,12 @@ Welcome to **EcoTrack**, a modern, highly interactive web application designed t
 - **🤖 AI Insights**: Get personalized eco-friendly tips and data analysis using **Google Gemini AI**.
 - **⚡ Blazing Fast**: Built on **Next.js 16** with React 19 for maximum performance and SEO readiness.
 - **🎨 Stunning UI**: Modern, glassmorphism-inspired design crafted with **TailwindCSS 4** and animated fluidly via **Framer Motion**.
-- **💾 Robust Database**: Type-safe database interactions with **Drizzle ORM** and **PostgreSQL**.
 - **🛠️ State Management**: Seamless and predictable state management using **Zustand**.
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-Make sure you have Node.js (v18+) and PostgreSQL installed on your machine.
+Make sure you have Node.js (v18+) installed on your machine.
 
 ### Installation
 
@@ -45,25 +42,18 @@ Make sure you have Node.js (v18+) and PostgreSQL installed on your machine.
    npm install
    ```
 
-3. **Set up Environment Variables:**
-   Create a `.env` file in the root directory and configure your database and API keys:
+3. **Set up Environment Variables (Optional):**
+   Create a `.env` file in the root directory only if you want to use the AI coach feature:
    ```env
-   DATABASE_URL=postgresql://user:password@localhost:5432/ecotrack
    GEMINI_API_KEY=your_gemini_api_key_here
    ```
 
-4. **Run Database Migrations:**
-   ```bash
-   npm run typecheck
-   npx drizzle-kit push
-   ```
-
-5. **Start the Development Server:**
+4. **Start the Development Server:**
    ```bash
    npm run dev
    ```
 
-6. **Open the App:**
+5. **Open the App:**
    Navigate to [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 🛠️ Tech Stack
@@ -74,8 +64,6 @@ Make sure you have Node.js (v18+) and PostgreSQL installed on your machine.
 | **Styling** | TailwindCSS 4.1 |
 | **Animations** | Framer Motion |
 | **Icons** | Lucide React |
-| **Database** | PostgreSQL |
-| **ORM** | Drizzle ORM |
 | **State Management** | Zustand |
 | **Charts** | Recharts |
 | **AI Integration** | Google Generative AI (Gemini) |

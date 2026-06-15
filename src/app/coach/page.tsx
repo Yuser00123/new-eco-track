@@ -149,8 +149,12 @@ export default function CoachPage() {
   }, [profile, getTopCategory, addAIInsight]);
 
   useEffect(() => {
-    void fetchInsight(activeMode);
-  }, [activeMode]); // eslint-disable-line react-hooks/exhaustive-deps
+    const timeoutId = window.setTimeout(() => {
+      void fetchInsight(activeMode);
+    }, 0);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [activeMode, fetchInsight]);
 
   const handleModeChange = (mode: InsightType) => {
     setActiveMode(mode);

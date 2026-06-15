@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from '@/components/layout/Navbar';
 import { GlassCard } from '@/components/ui/GlassCard';
@@ -16,16 +16,13 @@ export default function ActionsPage() {
   const { profile, completeAction, initializeStore } = useEcoStore();
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('all');
   const [difficultyFilter, setDifficultyFilter] = useState<DifficultyFilter>('all');
-  const [actions, setActions] = useState<EcoAction[]>([]);
   const [justCompleted, setJustCompleted] = useState<string | null>(null);
 
   useEffect(() => {
     initializeStore();
   }, [initializeStore]);
 
-  useEffect(() => {
-    setActions(getStoredActions(profile));
-  }, [profile]);
+  const actions = useMemo(() => getStoredActions(profile), [profile]);
 
   const filteredActions = actions.filter((action) => {
     if (categoryFilter !== 'all' && action.category !== categoryFilter) return false;
